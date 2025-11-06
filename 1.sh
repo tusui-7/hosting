@@ -1,20 +1,20 @@
 
+
 export DYNV6_TOKEN="x6onnai7W_n6RqEz1JUgYX3NWSzPnz"
 export DYNV6_DNS="musics.v6.navy"
 
 
-
-
 mkdir -p "$PWD/bin/acme/ssl"
 cd "$PWD/bin/acme"
+if [ ! -f acme.sh ];then
 curl -sSL -o  acme.tar.gz https://github.com/acmesh-official/acme.sh/archive/master.tar.gz
 tar zxvf acme.tar.gz
 mv acme.sh-master/*  .
 rm -rf  acme.sh-master
 rm acme.tar.gz
+fi
 
-./acme.sh --install --nocron --home "$PWD/bin/acme/ssl" -s  "email=XX@email.com"
-
-./acme.sh --issue --server letsencrypt --home . -d "$DYNV6_DNS" --dns dns_dynv6
+# ./acme.sh --install --nocron --home "$PWD/bin/acme/ssl"  -s  "email=XX@email.com"
+./acme.sh --issue --server letsencrypt --home "$PWD/bin/acme/ssl" -d "$DYNV6_DNS" --dns dns_dynv6  --debug  --force
 
 
