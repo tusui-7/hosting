@@ -1,2 +1,6 @@
 # hosting
-ori
+orihost docker build Navidrome !!
+
+
+
+ 
