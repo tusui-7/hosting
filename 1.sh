@@ -1,5 +1,5 @@
-
 # nginx
+ECC="_ecc"
 mkdir -p "/var/www/html"
 mkdir -p "$PWD/bin/nginx/log"
 mkdir -p "$PWD/bin/nginx/conf/ssl"
@@ -8,7 +8,7 @@ cd "$PWD/bin/nginx"
 if [ ! -f "./conf/nginx.conf" ];then
 curl -sSL -o  nginx.tar.gz https://nginx.org/download/nginx-1.24.0.tar.gz
 tar zxvf nginx.tar.gz
-mv ./nginx-1.24.0/conf  .
+mv -f ./nginx-1.24.0/conf  .
 rm -rf  nginx-1.24.0
 rm nginx.tar.gz
 
@@ -74,4 +74,3 @@ EOF
 cat  "./conf/nginx.conf"
 
 fi
-
