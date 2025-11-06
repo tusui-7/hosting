@@ -1,0 +1,322 @@
+# See available options to customize Navidrome for your needs at
+# https://www.navidrome.org/docs/usage/configuration-options/#available-options
+
+# Folder where your music library is stored. Can be read-only.
+ MusicFolder = "/home/container/file/music"
+
+# Folder to store application data (DB).
+ DataFolder = "/home/container/bin/navidrome/data"
+
+# Folder to store cache data (transcoding, images…).
+# CacheFolder = "<DataFolder>/cache"
+
+# Log level. Useful for troubleshooting.
+# Possible values: error, warn, info, debug, trace.
+# LogLevel = "info"
+
+# Address the server will bind to. Can be an IPv4, IPv6 or a UNIX socket
+# file (unix:/path/to/file).
+# Address = 0.0.0.0
+# Address = ::
+
+# Base URL to configure Navidrome behind a proxy.
+# Examples: /music, https://music.example.com.
+# BaseUrl = 
+
+# HTTP port Navidrome will listen to.
+ Port = 30113
+
+# Controls whether the server will run its Anonymous Data Collection feature
+# to help improve the project.
+# EnableInsightsCollector = true
+
+# Change how album play count is computed. When set to "normalized", album
+# play count will be divided by the number of album tracks.
+# AlbumPlayCountMode = "absolute"
+
+# How many login requests can be processed from a single IP during the
+# AuthWindowLength. Set to 0 to disable the limit rater.
+# AuthRequestLimit = 5
+
+# Window Length for the authentication rate limit.
+# AuthWindowLength = "20s"
+
+# Enable/disable .m3u playlist auto-import.
+# AutoImportPlaylists = true
+
+# Set imported playlists as public by default.
+# DefaultPlaylistPublicVisibility = false
+
+# Configure the order to look for artist images.
+# ArtistArtPriority = "artist.*, album/artist.*, external"
+
+# Path to store backups. Set to "" to disable backups. Click here for details.
+# Backup.Path = ""
+
+# Schedule for automatic backups. Use Cron syntax, "" to disable.
+# Backup.Schedule = ""
+
+# Number of backups to keep.
+# Backup.Count = 0
+
+# Configure the order to look for cover art images. Use special embedded
+# value to get embedded images from the audio files.
+# CoverArtPriority = cover.*, folder.*, front.*, embedded, external
+
+# Set JPEG quality percentage for resized cover art images.
+# CoverJpegQuality = 75
+
+# Format to transcode to when client requests downsampling (specify
+# maxBitrate without a format).
+# DefaultDownsamplingFormat = "opus"
+
+# Sets the default language used by the UI when logging in from a new browser.
+# This value must match one of the file names in the resources/i18n.
+# Ex: for Chinese Simplified it has to be zh-Hans (case sensitive).
+# DefaultLanguage = "en"
+
+# Sets the default theme used by the UI when logging in from a new browser.
+# This value must match one of the options in the UI.
+# DefaultTheme = "Dark"
+
+# Enable image pre-caching of new added music.
+# EnableArtworkPrecache = true
+
+# Controls whether the player in the UI will animate the album cover (rotation).
+# EnableCoverAnimation = true
+
+# Enable the option in the UI to download music/albums/artists/playlists from
+# the server.
+# EnableDownloads = true
+
+# Set this to false to completely disable ALL external integrations, including
+# the anonymous data collection and the nice login background images.
+# EnableExternalServices = true
+
+# Enable toggling “Heart”/“Loved” for songs/albums/artists in the UI (maps
+# to “Star”/“Starred” in Subsonic Clients).
+# EnableFavourites = true
+
+# Use Gravatar images as the user profile image. Needs the user’s email to be
+# filled.
+# EnableGravatar = false
+
+# Whether or not sensitive information (like tokens and passwords) should be
+# redacted (hidden) in the logs.
+# EnableLogRedacting = true
+
+# If set to false, it will return the album CoverArt when a song CoverArt is
+# requested.
+# EnableMediaFileCoverArt = true
+
+# Enable ReplayGain options in the UI.
+# EnableReplayGain = true
+
+# Enable the Sharing feature.
+# EnableSharing = false
+
+# Enable 5-star ratings in the UI.
+# EnableStarRating = true
+
+# Enables transcoding configuration in the UI.
+# EnableTranscodingConfig = false
+
+# Enable regular users to edit their details and change their password.
+# EnableUserEditing = true
+
+# Path to ffmpeg executable. Use it when Navidrome cannot find it, or you
+# want to use a specific version. If empty, search to the PATH.
+ FFmpegPath = "<DataFolder>/ffmpeg"
+
+# Send basic info to your own Google Analytics account. Must be in the
+# format UA-XXXXXXXX. Disabled if empty.
+# GATrackingID = 
+
+# Allows the X-Frame-Options header value to be set with a custom value.
+# Ex: "SAMEORIGIN".
+# HTTPSecurityHeaders.CustomFrameOptionsValue = "DENY"
+
+# List of ignored articles when sorting/indexing artists.
+# IgnoredArticles = "The El La Los Las Le Les Os As O A"
+
+# Size of image (art work) cache. Set to "0" to disable cache.
+# ImageCacheSize = "100MB"
+
+# Enable Jukebox mode (play audio on server’s hardware).
+# https://www.navidrome.org/docs/usage/jukebox/ for details.
+# Jukebox.Enabled = false
+
+# By default, Jukebox mode is only available to Admins. Set this option
+# to false to allow any valid user to control it.
+# Jukebox.AdminOnly = true
+
+# List of devices that can be used by the Jukebox. Auto detect if empty.
+# https://www.navidrome.org/docs/usage/jukebox/#configuration for details.
+# Jukebox.Devices = 
+
+# Device to use for Jukebox mode, if there are multiple Jukebox.Devices
+# entries. Auto detect if empty.
+# https://www.navidrome.org/docs/usage/jukebox/#configuration for details.
+# Jukebox.Default = 
+
+# Set this to false to completely disable Last.fm integration.
+# LastFM.Enabled = true
+
+# Last.fm API Key.
+# LastFM.ApiKey = 
+
+# Last.fm API Secret.
+# LastFM.Secret = 
+
+# Two letter-code for language to be used to retrieve biographies from Last.fm.
+# https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes for details.
+# LastFM.Language = "en"
+
+# Set this to override the default ListenBrainz base URL (useful with
+# self-hosted solutions like Maloja).
+# ListenBrainz.BaseURL = https://api.listenbrainz.org/1/
+
+# Set this to false to completely disable ListenBrainz integration.
+# ListenBrainz.Enabled = true
+
+# Set the maximum number of playlists shown in the UI’s sidebar.
+# Note that a very large number can cause UI performance issues.
+# MaxSidebarPlaylists = 100
+
+# Path to mpv executable. Used for Jukebox mode. Search in PATH if empty.
+# MPVPath = 
+
+# Cmd template used to construct the call of the mpv executable.
+# Used for Jukebox mode.
+# MPVCmdTemplate = mpv --audio-device=%d --no-audio-display --pause %f --input-ipc-server=%s
+
+# Passphrase used to encrypt passwords in the DB.
+# https://www.navidrome.org/docs/usage/security/#encrypted-passwords for details.
+# PasswordEncryptionKey = -
+
+# Set the tag(s) to use as the Album ID.
+# https://www.navidrome.org/docs/usage/pids/ for details.
+# PID.Album = musicbrainz_albumid|albumartistid,album,albumversion,releasedate
+
+# Set the tag(s) to use as the Track ID.
+# https://www.navidrome.org/docs/usage/pids/ for details.
+# PID.Track = musicbrainz_trackid|albumid,discnumber,tracknumber,title
+
+# Limit where to search for and import playlists from. Can be a list of
+# folders/globs (separated by : (or ; on Windows). Paths MUST be relative
+# to MusicFolder. Any playlist files in your library will be imported if empty.
+# PlaylistsPath = 
+
+# Use Sort_* tags to sort columns in the UI.
+# PreferSortTags = false
+
+# Enable extra endpoint with Prometheus metrics.
+# See https://prometheus.io/docs/introduction/overview/ for details.
+# Prometheus.Enabled = false
+
+# Custom path for Prometheus metrics. Useful for blocking unauthorized metrics
+# requests.
+# Prometheus.MetricsPath = "/metrics"
+
+# Uses music files’ modification time when sorting by “Recently Added”.
+# Otherwise use import time.
+# RecentlyAddedByModTime = false
+
+# HTTP header containing the user name from an authenticating proxy.
+# https://www.navidrome.org/docs/usage/reverse-proxy/ for details.
+# ReverseProxyUserHeader = "Remote-User"
+
+# Comma separated list of IP CIDRs (or when listening on a UNIX socket
+# the special value @) which are allowed to use reverse proxy authentication.
+# Empty means "deny all".
+# https://www.navidrome.org/docs/usage/reverse-proxy/ for details.
+# Note: This option is unnecessary for most reverse proxy setups, only for
+# authenticating reverse proxies.
+# ReverseProxyWhitelist = 
+
+# Enable/disable the scanner. Set to false to disable automatic scanning
+# of the music library.
+# Scanner.Enabled = true
+
+# Schedule for automatic scans. Use Cron syntax.
+# Scanner.Schedule = 0
+
+# Time to wait after a file change is detected before starting a scan.
+# Useful to avoid scanning incomplete files. Set it to 0 to disable the watcher.
+# Scanner.WatcherWait = "5s"
+
+# Enable/disable scanning the music library on startup. Set to false to disable.
+# Scanner.ScanOnStartup = true
+
+# Character string used to join multiple artists in display. Change this
+# if you prefer a different separator between artist names.
+# Scanner.ArtistJoiner = " • "
+
+# Match query strings anywhere in searchable fields, not only in word
+# boundaries. Useful for languages where words are not space separated.
+# SearchFullString = false
+
+# How long Navidrome will wait before closing web ui idle sessions.
+# SessionTimeout = "24h"
+
+# Base URL for shared links. Useful when your server address is not a
+# public (ex: when using Tailscale). Use server adresse if empty.
+# See discussion https://github.com/navidrome/navidrome/discussions/3117
+# ShareURL = 
+
+# How often to refresh Smart Playlists. See the smart playlists docs:
+# https://www.navidrome.org/docs/usage/smartplaylists/
+# SmartPlaylistRefreshDelay = "5s"
+
+# Spotify Client ID. Required if you want Artist images.
+# Spotify.ID = 
+
+# Spotify Client Secret. Required if you want Artist images.
+# Spotify.Secret = 
+
+# Spotify Client Secret. Required if you want Artist images.
+# Spotify.Secret = 
+
+# Append the subtitle tag to the song title in all Subsonic API responses.
+# Subsonic.AppendSubtitle = true
+
+# When Subsonic clients request artist’s albums, include albums where
+# the artist participates (ex: Various Artists compilations).
+# Subsonic.ArtistParticipations = false
+
+# Set to true to report the real path of the music files in the API.
+# Can be customized individually for each client/player.
+# This can be a security risk, so it is disabled by default.
+# Subsonic.DefaultReportRealPath = false
+
+# List of clients that does not work with the new OpenSubsonic API improvements.
+# Subsonic.LegacyClients = "DSub"
+
+# Configure custom tags to be imported from your music files.
+# https://www.navidrome.org/docs/usage/customtags/ for details.
+# Tags = 
+
+# Path for the TLS certificate file, which should include the signature
+# chain if any. Disable TLS if empty.
+# TLSCert = 
+
+# Path for the TLS key file. Disable TLS if empty.
+# TLSKey = 
+
+# Size of transcoding cache. Set to "0" to disable cache.
+# TranscodingCacheSize = "100MB"
+
+# Change background image used in the Login page.
+# By default arandom music image from this Unsplash.com collection:
+# https://unsplash.com/fr/collections/20072696/navidrome
+# UILoginBackgroundUrl = 
+
+# Add a welcome message to the login screen.
+# UIWelcomeMessage = 
+
+# Set file permissions for Unix Socket File.
+# UnixSocketPerm = "0660"
+
+
+
+
