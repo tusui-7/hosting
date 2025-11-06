@@ -1,3 +1,4 @@
+
 mkdir -p "$PWD/bin/acme/ssl"
 cd "$PWD/bin/acme"
 if [ ! -f acme.sh ];then
@@ -9,6 +10,6 @@ rm acme.tar.gz
 fi
 
 # ./acme.sh --install --nocron --home "$PWD/bin/acme/ssl"  -s  "email=XX@email.com"
-./acme.sh --issue --server letsencrypt --home "$PWD/bin/acme/ssl" -d "$DYNV6_DNS" --dns dns_dynv6  --debug  --force
+./acme.sh --set-default-ca --issue --server letsencrypt --home "./ssl" -d "$DYNV6_DNS" --dns dns_dynv6  --debug  --force
 
 
