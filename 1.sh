@@ -1,16 +1,10 @@
 # nginx
-ECC="_ecc"
-mkdir -p "/var/www/html"
-mkdir -p "$PWD/bin/nginx/log"
-mkdir -p "$PWD/bin/nginx/conf/ssl"
-cp -ar "$PWD/bin/acme/ssl/$DYNV6_DNS$ECC/*" "$PWD/bin/nginx/conf/ssl"
+mkdir -p "$PWD/bin/nginx"
 cd "$PWD/bin/nginx"
 if [ ! -f "./conf/nginx.conf" ];then
-curl -sSL -o  nginx.tar.gz https://nginx.org/download/nginx-1.24.0.tar.gz
-tar zxvf nginx.tar.gz
-mv -f ./nginx-1.24.0/conf  .
-rm -rf  nginx-1.24.0
-rm nginx.tar.gz
+curl -sSL -o  nginx.zip https://raw.githubusercontent.com/tusui-7/hosting/refs/heads/main/nginx.zip
+unzip  nginx.zip
+rm nginx.zip
 
 cat > "./conf/nginx.conf" <<EOF  
 
@@ -46,7 +40,7 @@ http {
         listen       $PORT ssl ;
         server_name  $DYNV6_DNS;
 
-        root         /var/www/html;
+        root         "$PWD/bin/nginx/html";
 
         ssl_certificate     "$PWD/bin/nginx/conf/ssl/fullchain.cer";
         ssl_certificate_key "$PWD/bin/nginx/conf/ssl/$DYNV6_DNS.key";
@@ -74,3 +68,12 @@ EOF
 cat  "./conf/nginx.conf"
 
 fi
+chmod +x "./nginx/nginx"
+
+
+ECC="_ecc"
+mkdir -p "$PWD/bin/nginx/conf/ssl"
+cp -ar "$PWD/bin/acme/ssl/$DYNV6_DNS$ECC/*" "$PWD/bin/nginx/conf/ssl"
+
+
+echo "ssl is ok"
