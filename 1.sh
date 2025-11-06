@@ -1,9 +1,3 @@
-
-
-export DYNV6_TOKEN="x6onnai7W_n6RqEz1JUgYX3NWSzPnz"
-export DYNV6_DNS="musics.v6.navy"
-
-
 mkdir -p "$PWD/bin/acme/ssl"
 cd "$PWD/bin/acme"
 if [ ! -f acme.sh ];then
