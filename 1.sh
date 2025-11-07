@@ -3,7 +3,6 @@
 LOCAL_PATH="$PWD"
 
 
-# nginx
 cd "$LOCAL_PATH/bin"
 if [ ! -d "nginx" ];then
 curl -sSL -o  nginx.zip https://raw.githubusercontent.com/tusui-7/hosting/refs/heads/main/nginx.zip
@@ -78,7 +77,8 @@ chmod +x "./sbin/nginx"
 
 ECC="_ecc"
 mkdir -p "$LOCAL_PATH/bin/nginx/conf/ssl"
-cp -ar "$LOCAL_PATH/bin/acme/ssl/$DYNV6_DNS$ECC/*" "$LOCAL_PATH/bin/nginx/conf/ssl"
+cp -f "$LOCAL_PATH/bin/acme/ssl/$DYNV6_DNS$ECC/fullchain.cer" "$LOCAL_PATH/bin/nginx/conf/ssl/fullchain.cer"
+cp -f "$LOCAL_PATH/bin/acme/ssl/$DYNV6_DNS$ECC/$DYNV6_DNS.key" "$LOCAL_PATH/bin/nginx/conf/ssl/$DYNV6_DNS.key"
 
 
 echo "ssl is ok"
