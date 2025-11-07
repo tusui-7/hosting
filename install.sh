@@ -3,7 +3,7 @@
 PORT="${PORT:-5244}"
 DYNV6_TOKEN="${DYNV6_TOKEN:-123}"
 DYNV6_DNS="${DYNV6_DNS:-a.com}"
-LOCAL_PATH="$PWD:-/home/container"
+LOCAL_PATH="$PWD"
 
 
 
