@@ -8,8 +8,8 @@ const apps = [
   
   {
     name: "navidrome",
-    binaryPath: "/home/container/bin/navidrome/navidrome",
-    args: ["--configfile", "/home/container/bin/navidrome/navidrome.toml"],
+    binaryPath: "HOME/bin/navidrome/navidrome",
+    args: ["--configfile", "HOME/bin/navidrome/navidrome.toml"],
     mode: "inherit"
   }
   
