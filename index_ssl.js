@@ -15,7 +15,7 @@ const apps = [
   {
     name: "acme",
     binaryPath: "bash",
-    args: ["HOME/bin/acme/cron.sh"],
+    args: ["HOME/bin/acme/ssl.sh"],
     mode: "inherit"
   },
   
