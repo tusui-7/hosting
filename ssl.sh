@@ -5,7 +5,7 @@ done
 
 export DYNV6_TOKEN="TOKEN0"
 ECC="_ecc"
-"HOME/bin/acme/acme.sh" --set-default-ca --issue --server letsencrypt --home "HOME/bin/acme/ssl" -d "$DYNV6_DNS" --dns dns_dynv6  --debug  --force
+"HOME/bin/acme/acme.sh" --set-default-ca --issue --server letsencrypt --home "HOME/bin/acme/ssl" -d "DYNV6_DNS" --dns dns_dynv6  --debug  --force
 
 sleep 60
 mkdir -p "HOME/bin/nginx/conf/ssl"
