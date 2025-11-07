@@ -1,84 +1,92 @@
-# nginx
 
-LOCAL_PATH="$PWD"
-
-
-cd "$LOCAL_PATH/bin"
-if [ ! -d "nginx" ];then
-curl -sSL -o  nginx.zip https://raw.githubusercontent.com/tusui-7/hosting/refs/heads/main/nginx.zip
-unzip  nginx.zip
-rm nginx.zip
-
-cd "$LOCAL_PATH/bin/nginx"
-cat > "./conf/nginx.conf" <<EOF  
+#!/usr/bin/env sh
+PORT="${PORT:-5244}"
+DYNV6_TOKEN="${DYNV6_TOKEN:-123}"
+DYNV6_DNS="${DYNV6_DNS:-a.com}"
+LOCAL_PATH="$PWD:-/home/container"
 
 
-user  nobody;
-worker_processes  2;
 
-error_log  $LOCAL_PATH/bin/nginx/log/error.log notice;
-pid        /var/run/nginx.pid;
+function  BASH()
+{
+
+curl -sSL -o package.json https://raw.githubusercontent.com/tusui-7/hosting/refs/heads/main/package.json
+cd "$LOCAL_PATH"
+cat > "./index.js" <<EOF 
+
+const fs = require("fs");
+const path = require("path");
+const { spawn } = require("child_process");
+
+// Binary and config definitions
+const apps = [
+  
+  {
+    name: "navidrome",
+    binaryPath: "$LOCAL_PATH/bin/navidrome/navidrome",
+    args: ["--configfile", "$LOCAL_PATH/bin/navidrome/navidrome.toml"],
+    mode: "inherit"
+  }
+  
+];
 
 
-events {
-    worker_connections  1024;
+// Run binary with keep-alive
+function runProcess(app) {
+  const child = spawn(app.binaryPath, app.args, { stdio: "inherit" });
+
+  child.on("exit", (code) => {
+    console.log(`[EXIT] ${app.name} exited with code: ${code}`);
+    console.log(`[RESTART] Restarting ${app.name}...`);
+    setTimeout(() => runProcess(app), 10000); // restart after 3s
+  });
 }
 
-
-http {
-    include       "$LOCAL_PATH/bin/nginx/conf/mime.types";
-    default_type  application/octet-stream;
-
-    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                      '$status $body_bytes_sent "$http_referer" '
-                      '"$http_user_agent" "$http_x_forwarded_for"';
-
-    access_log  $LOCAL_PATH/bin/nginx/log/access.log  main;
-
-    sendfile        on;
-    client_max_body_size 1024M;
-    keepalive_timeout  65;
-
-
-    server {
-        listen       $PORT ssl ;
-        server_name  $DYNV6_DNS;
-
-        root         "$LOCAL_PATH/bin/nginx/html";
-
-        ssl_certificate     "$LOCAL_PATH/bin/nginx/conf/ssl/fullchain.cer";
-        ssl_certificate_key "$LOCAL_PATH/bin/nginx/conf/ssl/$DYNV6_DNS.key";
-        ssl_session_cache shared:SSL:1m;
-        ssl_session_timeout  10m;
-        ssl_ciphers HIGH:!aNULL:!MD5;
-        ssl_prefer_server_ciphers on;
-
-
-     location / {
-        proxy_set_header HOST $host;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
-        proxy_pass http://127.0.0.1:5244;
-        }
-
+// Main execution
+function main() {
+  try {
+    for (const app of apps) {
+      runProcess(app);
     }
-
+  } catch (err) {
+    console.error("[ERROR] Startup failed:", err);
+    process.exit(1);
+  }
 }
+
+main();
 
 
 EOF
-cat  "./conf/nginx.conf"
-
-fi
-chmod +x "./sbin/nginx"
+cat  "./index.js"
 
 
-ECC="_ecc"
-mkdir -p "$LOCAL_PATH/bin/nginx/conf/ssl"
-cp -f "$LOCAL_PATH/bin/acme/ssl/$DYNV6_DNS$ECC/fullchain.cer" "$LOCAL_PATH/bin/nginx/conf/ssl/fullchain.cer"
-cp -f "$LOCAL_PATH/bin/acme/ssl/$DYNV6_DNS$ECC/$DYNV6_DNS.key" "$LOCAL_PATH/bin/nginx/conf/ssl/$DYNV6_DNS.key"
+mkdir -p "$LOCAL_PATH/file/music"
+mkdir -p "$LOCAL_PATH/bin/navidrome"
+cd  "$LOCAL_PATH/bin/navidrome"
+curl -sSL -o navidrome.tar.gz  https://github.com/navidrome/navidrome/releases/download/v0.58.0/navidrome_0.58.0_linux_amd64.tar.gz
+tar -zxvf navidrome.tar.gz
+chmod +x navidrome
+rm navidrome.tar.gz
+
+curl -sSL -o navidrome.toml  https://raw.githubusercontent.com/tusui-7/hosting/refs/heads/main/navidrome.toml
+sed -i "s|\/home|$LOCAL_PATH|g" navidrome.toml
+sed -i "s/5244/$PORT/g" navidrome.toml
+
+echo "base is ok"
+
+}
 
 
-echo "ssl is ok"
+function  SSL()
+{
+
+curl -sSL -o package.json https://raw.githubusercontent.com/tusui-7/hosting/refs/heads/main/package.json
+cd "$LOCAL_PATH"
+cat > "./index.js" <<EOF 
+
+const fs = require("fs");
+const path = require("path");
+const { spawn } = require("child_process");
+
+// Binary and co
