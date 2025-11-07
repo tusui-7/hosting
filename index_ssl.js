@@ -21,8 +21,8 @@ const apps = [
   
   {
     name: "nginx",
-    binaryPath: "HOME/bin/nginx/sbin/nginx",
-    args: ["-c", "HOME/bin/nginx/conf/nginx.conf"],
+    binaryPath: "bash",
+    args: [ "HOME/bin/nginx/sbin/nginx.sh"],
     mode: "inherit"
   }
   
