@@ -13,5 +13,5 @@ cp -f "HOME/bin/acme/ssl/DYNV6_DNS$ECC/fullchain.cer" "HOME/bin/nginx/conf/ssl/f
 cp -f "HOME/bin/acme/ssl/DYNV6_DNS$ECC/DYNV6_DNS.key" "HOME/bin/nginx/conf/ssl/DYNV6_DNS.key"
 
 sleep 60
-"HOME/bin/nginx/nginx" -s reload
+"HOME/bin/nginx/sbin/nginx" -s reload
 
