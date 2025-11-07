@@ -2,10 +2,10 @@
 # https://www.navidrome.org/docs/usage/configuration-options/#available-options
 
 # Folder where your music library is stored. Can be read-only.
- MusicFolder = "/home/file/music"
+ MusicFolder = "HOME/file/music"
 
 # Folder to store application data (DB).
- DataFolder = "/home/bin/navidrome/data"
+ DataFolder = "HOME/bin/navidrome/data"
 
 # Folder to store cache data (transcoding, images…).
 # CacheFolder = "<DataFolder>/cache"
