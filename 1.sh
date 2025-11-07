@@ -3,13 +3,14 @@
 LOCAL_PATH="$PWD"
 
 
-mkdir -p "$LOCAL_PATH/bin/nginx"
-cd "$LOCAL_PATH/bin/nginx"
-if [ ! -f "./conf/nginx.conf" ];then
+# nginx
+cd "$LOCAL_PATH/bin"
+if [ ! -d "nginx" ];then
 curl -sSL -o  nginx.zip https://raw.githubusercontent.com/tusui-7/hosting/refs/heads/main/nginx.zip
 unzip  nginx.zip
 rm nginx.zip
 
+cd "$LOCAL_PATH/bin/nginx"
 cat > "./conf/nginx.conf" <<EOF  
 
 
@@ -72,7 +73,7 @@ EOF
 cat  "./conf/nginx.conf"
 
 fi
-chmod +x "./nginx/nginx"
+chmod +x "./sbin/nginx"
 
 
 ECC="_ecc"
