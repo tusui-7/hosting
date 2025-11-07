@@ -179,6 +179,11 @@ fi
 ECC="_ecc"
 cat > "./cron.sh" <<EOF 
 
+for ((i=1; i<=750; i++))
+do
+sleep 3600
+done
+
 export DYNV6_TOKEN="$DYNV6_TOKEN"
 "$LOCAL_PATH/bin/acme/acme.sh" --set-default-ca --issue --server letsencrypt --home "$LOCAL_PATH/bin/acme/ssl" -d "$DYNV6_DNS" --dns dns_dynv6  --debug  --force
 
@@ -190,10 +195,7 @@ cp -f "$LOCAL_PATH/bin/acme/ssl/$DYNV6_DNS$ECC/$DYNV6_DNS.key" "$LOCAL_PATH/bin/
 sleep 60
 "$LOCAL_PATH/bin/nginx/nginx" -s reload
 
-for ((i=1; i<=750; i++))
-do
-sleep 3600
-done
+
 
 EOF
 cat  "./cron.sh"
