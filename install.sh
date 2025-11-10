@@ -118,9 +118,8 @@ echo "ssl is ok"
 PUBLIC_IP=$(curl --silent http://4.ipw.cn)
 echo "PUBLIC_IP is : $PUBLIC_IP"
 
-curl --silent "https://ipv4.dynv6.com/api/update?zone=$DYNV6_DNS&ipv4=8.8.8.8&token=$DYNV6_TOKEN"
-sleep 10
-RESULT=$(curl  --silent "https://ipv4.dynv6.com/api/update?zone=$DYNV6_DNS&ipv4=$PUBLIC_IP&token=$DYNV6_TOKEN")
+sleep 2
+RESULT=$(curl --silent "https://ipv4.dynv6.com/api/update?zone=$DYNV6_DNS&ipv4=8.8.8.8&token=$DYNV6_TOKEN")
 echo "$RESULT"
 if [ "$RESULT" == "addresses updated" ];then
 
