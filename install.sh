@@ -90,12 +90,13 @@ chmod +x "./nginx/sbin/nginx"
 cd "$LOCAL_PATH/bin/nginx/conf"
 mv nginx.conf nginx.conf.bak
 curl -sSL -o nginx.conf  https://raw.githubusercontent.com/tusui-7/hosting/refs/heads/main/nginx.conf
-sed -i "s|HOME|$LOCAL_PATH|g" nginx.conf
-sed -i "s|443|$PORT|g" nginx.conf
-sed -i "s|DYNV6_DNS|$DYNV6_DNS|g" nginx.conf
+sed -i "s|HOME|$LOCAL_PATH|g" "nginx.conf"
+sed -i "s|443|$PORT|g"        "nginx.conf"
+sed -i "s|DYNV6_DNS|$DYNV6_DNS|g" "nginx.conf"
 
 cd "$LOCAL_PATH/bin/nginx/sbin"
 curl -sSL -o  nginx.sh https://raw.githubusercontent.com/tusui-7/hosting/refs/heads/main/nginx.sh
+sed -i "s|HOME|$LOCAL_PATH|g" "nginx.sh"
 chmod +x "./nginx.sh"
 
 fi
