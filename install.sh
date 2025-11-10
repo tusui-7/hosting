@@ -1,6 +1,6 @@
 
 #!/usr/bin/env sh
-PORT="${PORT:-5244}"
+PORT="${PORT:-4533}"
 DYNV6_TOKEN="${DYNV6_TOKEN:-123}"
 DYNV6_DNS="${DYNV6_DNS:-a.com}"
 LOCAL_PATH="$PWD"
@@ -24,7 +24,7 @@ rm navidrome.tar.gz
 
 curl -sSL -o navidrome.toml  https://raw.githubusercontent.com/tusui-7/hosting/refs/heads/main/navidrome.toml
 sed -i "s|HOME|$LOCAL_PATH|g" navidrome.toml
-sed -i "s|5244|$PORT|g" navidrome.toml
+sed -i "s|4533|$PORT|g" navidrome.toml
 
 echo "base is ok"
 
@@ -52,7 +52,7 @@ fi
 
 curl -sSL -o navidrome.toml  https://raw.githubusercontent.com/tusui-7/hosting/refs/heads/main/navidrome.toml
 sed -i "s|HOME|$LOCAL_PATH|g" navidrome.toml
-#sed -i "s|5244|$PORT|g" navidrome.toml
+#sed -i "s|4533|$PORT|g" navidrome.toml
 
 
 
