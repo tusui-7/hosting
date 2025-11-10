@@ -24,7 +24,7 @@
 # BaseUrl = 
 
 # HTTP port Navidrome will listen to.
- Port = 5244
+ Port = 4533
 
 # Controls whether the server will run its Anonymous Data Collection feature
 # to help improve the project.
