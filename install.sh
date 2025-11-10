@@ -123,7 +123,7 @@ echo "$RESULT"
 if [ "$RESULT" == "addresses updated" ];then
 
 SSL
-curl  "https://ipv4.dynv6.com/api/update?zone=$DYNV6_DNS&ipv4=$PUBLIC_IP&token=$DYNV6_TOKEN"
+curl  --silent "https://ipv4.dynv6.com/api/update?zone=$DYNV6_DNS&ipv4=$PUBLIC_IP&token=$DYNV6_TOKEN"
 
 else
 
