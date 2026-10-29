@@ -70,9 +70,9 @@ mv acme.sh-master/*  .
 rm -rf  acme.sh-master
 rm acme.tar.gz
 
-CF_Token="$DNS_TOKEN"
-CF_Account_ID="$DNS_Account_ID"
-CF_Zone_ID="$DNS_ZONE_ID"
+export CF_Token="$DNS_TOKEN"
+export CF_Account_ID="$DNS_Account_ID"
+export CF_Zone_ID="$DNS_ZONE_ID"
 ./acme.sh --set-default-ca --issue --server letsencrypt --home "./ssl" -d "$DNS_DOMAIN" -d "*.$DNS_DOMAIN" --dns dns_cf  --debug  --force
 
 curl -sSL -o ssl.sh  "$DOWN_URL/sh/ssl_cf.sh"
