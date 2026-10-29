@@ -23,7 +23,7 @@ DOWN_URL="${DOWN_URL:-https://raw.githubusercontent.com/tusui-7/hosting/refs/hea
 #token
 PORT="${PORT:-4533}"
 DNS_TOKEN="${DNS_TOKEN:-123}"
-DNS_DOMAIN="${DNS_DOMAIN:-}"
+DNS_DOMAIN="${DNS_DOMAIN:-123}"
 DNS_ZONE_ID=''
 DNS_Account_ID=''
 DNS_EMAIL=''
@@ -718,7 +718,7 @@ echo wait 5s and continue
 echo --------------------------------
 sleep 5
 
-DNS_TOKEN="null"
+DNS_TOKEN=""
 HBBR
 
 
