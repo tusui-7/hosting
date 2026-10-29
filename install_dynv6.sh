@@ -547,7 +547,7 @@ data="{  \
 echo "${data}"
 
 
-RESULT=$(curl -s -X PUT  \
+RESULT=$(curl -s -X PATCH  \
     -H "Authorization: Bearer ${DNS_TOKEN}" \
     -H "Accept: application/json" \
     -H "Content-Type: application/json" \
