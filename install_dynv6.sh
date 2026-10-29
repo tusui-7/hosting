@@ -548,7 +548,7 @@ echo "${data}"
 
 
 RESULT=$(curl -s -X PUT  \
-    -H "Authorization: Bearer $DNS_TOKEN" \
+    -H "Authorization: Bearer ${DNS_TOKEN}" \
     -H "Accept: application/json" \
     -H "Content-Type: application/json" \
 	--data  "${data}"  \
@@ -562,6 +562,7 @@ RESULT=$(curl -s -X POST  \
 	--data  "${data}"  \
     https://dynv6.com/api/v2/zones/${DNS_ZONE_ID}/records  \
 )
+
 
 
 echo "更新结果: $RESULT"
