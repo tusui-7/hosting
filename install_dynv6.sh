@@ -554,6 +554,8 @@ RESULT=$(curl -s -X PATCH  \
 	--data  "${data}"  \
     https://dynv6.com/api/v2/zones/${DNS_ZONE_ID}/records  \
 )  
+echo "$RESULT"
+sleep 4
 let RES=$(echo $RESULT|grep -c '"Method Not Allowed"')
 if [ $RES -eq 1 ];then
 RESULT=$(curl -s -X POST  \
