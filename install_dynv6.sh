@@ -497,6 +497,7 @@ ZONE=$(curl \
     -H "Accept: application/json" \
     https://dynv6.com/api/v2/zones  \
 )
+sleep 2
 echo "$ZONE"
 
 ARRAY_ZONES=(`echo "$ZONE" | tr ',' ' '` )  
