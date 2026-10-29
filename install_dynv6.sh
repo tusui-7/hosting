@@ -427,10 +427,10 @@ echo "$EXE_NAME is ok"
 
 
 #frpc
-function  FPRC()
+function  FRPC()
 {
 
-EXE_NAME="fprc"
+EXE_NAME="frpc"
 cd  "$LOCAL_PATH/"
 if grep -q "$EXE_NAME" "$INDEX_JS"; then
 echo "Found $EXE_NAME"
@@ -453,7 +453,7 @@ mkdir -p "$LOCAL_PATH/$BIN_PATH/frpc"
 cd "$LOCAL_PATH/$BIN_PATH/frpc"
 if [ ! -f "frpc" ];then
 
-curl -sSL -o  hbbr.zip  "$DOWN_URL/bin/frpc.zip"
+curl -sSL -o  frpc.zip  "$DOWN_URL/bin/frpc.zip"
 unzip   frpc.zip
 rm   frpc.zip
 chmod +x "./frpc"
@@ -478,6 +478,7 @@ fi
 echo "$EXE_NAME is ok"
 
 }
+
 
 
 
