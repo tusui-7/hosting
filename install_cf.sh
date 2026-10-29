@@ -9,10 +9,10 @@ INDEX_JS="${INDEX_JS:-index.js}"
 mkdir -p "$LOCAL_PATH/$BIN_PATH"
 
 # dns_name
-SUB_NAVIDROME="${DNS_NAVIDROME:-navidrome}"
-SUB_FILEBROWSER="${DNS_FILEBROWSER:-filebrowser}"
-SUB_OPENLIST="${DNS_OPENLIST:-openlist}"
-SUB_EASYTIER="${DNS_EASYTIER:-easytier}"
+SUB_NAVIDROME="${SUB_NAVIDROME:-navidrome}"
+SUB_FILEBROWSER="${SUB_FILEBROWSER:-filebrowser}"
+SUB_OPENLIST="${SUB_OPENLIST:-openlist}"
+SUB_EASYTIER="${SUB_EASYTIER:-easytier}"
 
 # secert_easytier
 SECERT_EASYTIER="${SECERT_EASYTIER:-orihost}"
@@ -201,7 +201,7 @@ curl -sSL -o navidrome.conf  "$DOWN_URL/conf.d/navidrome.conf"
 sed -i "s|HOME|$LOCAL_PATH|g"   "navidrome.conf"
 sed -i "s|BIN_PATH|$BIN_PATH|g" "navidrome.conf"
 sed -i "s|443|$PORT|g"          "navidrome.conf"
-sed -i "s|DNS_NAME|$DNS_NAVIDROME|g"  "navidrome.conf"
+sed -i "s|DNS_NAME|$SUB_NAVIDROME|g"  "navidrome.conf"
 sed -i "s|DNS_DOMAIN|$DNS_DOMAIN|g" "navidrome.conf"
 
 
@@ -259,7 +259,7 @@ curl -sSL -o filebrowser.conf  "$DOWN_URL/conf.d/filebrowser.conf"
 sed -i "s|HOME|$LOCAL_PATH|g"   "filebrowser.conf"
 sed -i "s|BIN_PATH|$BIN_PATH|g" "filebrowser.conf"
 sed -i "s|443|$PORT|g"          "filebrowser.conf"
-sed -i "s|DNS_NAME|$DNS_FILEBROWSER|g"  "filebrowser.conf"
+sed -i "s|DNS_NAME|$SUB_FILEBROWSER|g"  "filebrowser.conf"
 sed -i "s|DNS_DOMAIN|$DNS_DOMAIN|g"  "filebrowser.conf"
 
 fi
@@ -314,7 +314,7 @@ curl -sSL -o openlist.conf  "$DOWN_URL/conf.d/openlist.conf"
 sed -i "s|HOME|$LOCAL_PATH|g"   "openlist.conf"
 sed -i "s|BIN_PATH|$BIN_PATH|g" "openlist.conf"
 sed -i "s|443|$PORT|g"          "openlist.conf"
-sed -i "s|DNS_NAME|$DNS_OPENLIST|g"  "openlist.conf"
+sed -i "s|DNS_NAME|$SUB_OPENLIST|g"  "openlist.conf"
 sed -i "s|DNS_DOMAIN|$DNS_DOMAIN|g" "openlist.conf"
 
 fi
@@ -373,7 +373,7 @@ curl -sSL -o easytier.conf  "$DOWN_URL/conf.d/easytier.conf"
 sed -i "s|HOME|$LOCAL_PATH|g" "easytier.conf"
 sed -i "s|BIN_PATH|$BIN_PATH|g" "easytier.conf"
 sed -i "s|443|$PORT|g"        "easytier.conf"
-sed -i "s|DNS_NAME|$DNS_EASYTIER|g"  "easytier.conf"
+sed -i "s|DNS_NAME|$SUB_EASYTIER|g"  "easytier.conf"
 sed -i "s|DNS_DOMAIN|$DNS_DOMAIN|g" "easytier.conf"
 
 fi
