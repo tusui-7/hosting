@@ -437,10 +437,10 @@ echo "$EXE_NAME is ok"
 
 
 #frpc
-function  FPRC()
+function  FRPC()
 {
 
-EXE_NAME="fprc"
+EXE_NAME="frpc"
 cd  "$LOCAL_PATH/"
 if grep -q "$EXE_NAME" "$INDEX_JS"; then
 echo "Found $EXE_NAME"
@@ -859,7 +859,7 @@ fi
 #frpc
 if [ "$FRPC_FLAG" == "true" ];then
 
-FPRC
+FRPC
 
 fi
 
