@@ -858,9 +858,11 @@ fi
 
 #frpc
 if [ "$FRPC_FLAG" == "true" ];then
-FRPC
+
+FPRC
 
 fi
+
 
 }
 
