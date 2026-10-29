@@ -802,8 +802,8 @@ fi
 
 if grep -q "hbbr" "$INDEX_JS"; then
 
-CHANGE="\[\"-p\",.*\"\]"
-CHANGE_TO="[\"-p\", \"21117\"]"
+CHANGE="-p.*"
+CHANGE_TO="-p 21117"
 sed -ir "s|$CHANGE|$CHANGE_TO|g"  "$LOCAL_PATH/$BIN_PATH/hbbr/hbbr.sh"
 
 fi
