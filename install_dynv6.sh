@@ -536,7 +536,7 @@ for VAR_ZONE in ${ARRAY_ZONES[@]}
 do
 
 echo  "$VAR_ZONE"
-if  echo "$VAR_ZONE"| grep -c  "\"name\":\"${DNS_DOMAIN}\"" ;then
+if  echo "$VAR_ZONE"| grep -c  "${DNS_DOMAIN}" ;then
 
 ARRAY_VARs=(`echo "$VAR_ZONE" |tr ',' ' ' `)
 for VAR_C in ${ARRAY_VARs[@]}
