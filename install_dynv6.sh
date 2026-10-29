@@ -617,6 +617,11 @@ echo --------------------------------
 echo if you  have a domain, must make
 echo DNS_TOKEN="XXXXXX" 
 echo this must be dynv6 token
+echo if dynv6 token zone is all,
+echo you must make DNS_DOMAIN="XXX" 
+echo --------------------------------
+sleep 5
+echo ''
 echo --------------------------------
 echo subdomain name is app name self,
 echo if you want to change subdomain name,
