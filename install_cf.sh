@@ -759,7 +759,7 @@ if grep -q "nginx" "$INDEX_JS"; then
 
 CHANGE="\.\/nginx.*"
 CHANGE_TO="\#\.\/nginx  -g \"daemon off;\""
-sed -ir "s|$CHANGE|$CHANGE_TO|g" \
+sed -ir "s|^$CHANGE|$CHANGE_TO|g" \
 "$LOCAL_PATH/$BIN_PATH/nginx/sbin/nginx.sh"
 
 fi
@@ -795,7 +795,7 @@ if grep -q "nginx" "$INDEX_JS"; then
 
 CHANGE="\#\.\/nginx.*"
 CHANGE_TO="\.\/nginx  -g \"daemon off;\""
-sed -ir "s|$CHANGE|$CHANGE_TO|g" \
+sed -ir "s|^$CHANGE|$CHANGE_TO|g" \
 "$LOCAL_PATH/$BIN_PATH/nginx/sbin/nginx.sh"
 
 fi
