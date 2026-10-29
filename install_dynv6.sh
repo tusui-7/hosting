@@ -26,6 +26,7 @@ DNS_TOKEN="${DNS_TOKEN:-123}"
 DNS_DOMAIN="${DNS_DOMAIN:-123}"
 DNS_ZONE_ID=''
 
+
 #get ip
 PUBLIC_IP=$(curl --silent https://api-ipv4.ip.sb/ip)
 echo "PUBLIC_IP is : $PUBLIC_IP"	
@@ -749,7 +750,7 @@ if grep -q "nginx" "$INDEX_JS"; then
 
 CHANGE="\.\/nginx.*"
 CHANGE_TO="\#\.\/nginx  -g \"daemon off;\""
-sed -ir "s|$CHANGE|$CHANGE_TO|g" \
+sed -ir "s|^$CHANGE|$CHANGE_TO|g" \
 "$LOCAL_PATH/$BIN_PATH/nginx/sbin/nginx.sh"
 
 fi
@@ -786,7 +787,7 @@ if grep -q "nginx" "$INDEX_JS"; then
 
 CHANGE="\#\.\/nginx.*"
 CHANGE_TO="\.\/nginx  -g \"daemon off;\""
-sed -ir "s|$CHANGE|$CHANGE_TO|g" \
+sed -ir "s|^$CHANGE|$CHANGE_TO|g" \
 "$LOCAL_PATH/$BIN_PATH/nginx/sbin/nginx.sh"
 
 fi
