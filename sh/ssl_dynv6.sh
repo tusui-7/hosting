@@ -40,7 +40,7 @@ if [ ! -d "HOME/BIN_PATH/nginx/conf/ssl" ]; then
 mkdir -p "HOME/BIN_PATH/nginx/conf/ssl"
 fi 
 
-DYNV6_TOKEN="DNS_TOKEN"
+export DYNV6_TOKEN="DNS_TOKEN"
 "./acme.sh" --set-default-ca --issue --server letsencrypt --home "./ssl" -d "DNS_DOMAIN" -d "*.DNS_DOMAIN" --dns dns_dynv6  --debug  --force
 
 sleep 60
