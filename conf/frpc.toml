@@ -1,0 +1,56 @@
+
+
+#【公网服务端IP】
+serverAddr = "FRPC_IP"
+#【公网服务端端口】
+serverPort = FRCP_IP
+#【用户id,没有留空】
+user = "FRCP_USER"
+
+#【令牌，与公网服务端保持一致】
+[auth]
+method = "token"
+token = "FRP_TOKEN"
+
+
+## log
+#log.to = "./log/frpc.log"
+#log.level = "trace"
+#log.maxDays = 1
+
+
+[transport]
+protocol = "tcp"
+
+[transport.tls]
+enable = true
+disableCustomTLSFirstByte = false
+#serverName = "8.8.8.8"
+
+
+[[proxies]]
+name = "21116t"
+type = "tcp"
+localIP = "127.0.0.1"
+localPort = 21116
+remotePort = 21116
+
+[[proxies]]
+name = "21116u"
+type = "udp"
+localIP = "127.0.0.1"
+localPort = 21116
+remotePort = 21116
+
+
+
+[[proxies]]
+name = "http"
+type = "http"
+localIP = "0.0.0.0" # 需要暴露的服务的IP
+localPort = 80   # 将本地80端口的服务暴露在公网的80端口
+customDomains = [""]
+
+
+
+

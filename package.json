@@ -1,0 +1,11 @@
+{
+  "name": "orihost",
+  "version": "0.1.0",
+  "description": "navidrome Startup Script",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "tusui",
+  "license": "MIT"
+}
