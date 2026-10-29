@@ -8,7 +8,7 @@ SED_FLAGS="/\/\/SED_ADD_INSERT"
 INDEX_JS="${INDEX_JS:-index.js}"
 mkdir -p "$LOCAL_PATH/$BIN_PATH"
 
-# dns_name
+# sub_dns_name
 SUB_NAVIDROME="${SUB_NAVIDROME:-navidrome}"
 SUB_FILEBROWSER="${SUB_FILEBROWSER:-filebrowser}"
 SUB_OPENLIST="${SUB_OPENLIST:-openlist}"
@@ -49,9 +49,9 @@ else
 
 sed -i "$SED_FLAGS/a  \
   \  { \n  \
-  name: \"acme\", \n  \
+  name: \"$EXE_NAME\", \n  \
   binaryPath: \"bash\", \n  \
-  args: [\"HOME/$BIN_PATH/acme/ssl.sh\"], \n  \
+  args: [\"HOME/$BIN_PATH/$EXE_NAME/ssl.sh\"], \n  \
   mode: \"inherit\" \n  \
  }, \n  " "$INDEX_JS"
 
@@ -61,30 +61,34 @@ fi
 
 
 # acme.sh
-mkdir -p "$LOCAL_PATH/$BIN_PATH/acme/ssl"
-cd "$LOCAL_PATH/$BIN_PATH/acme"
-if [ ! -f  "$EXE_NAME.sh" ];then
-curl -sSL -o  acme.tar.gz https://github.com/acmesh-official/acme.sh/archive/master.tar.gz
-tar zxvf acme.tar.gz
+mkdir -p "$LOCAL_PATH/$BIN_PATH/$EXE_NAME/ssl"
+cd "$LOCAL_PATH/$BIN_PATH/$EXE_NAME"
+if [ ! -f  "acme.sh" ];then
+
+FILE_NAME="acme.tar.gz"
+curl -sSL -o  "$FILE_NAME" https://github.com/acmesh-official/acme.sh/archive/master.tar.gz
+tar zxvf "$FILE_NAME"
 mv acme.sh-master/*  .
 rm -rf  acme.sh-master
-rm acme.tar.gz
+rm "$FILE_NAME"
 
 export CF_Token="$DNS_TOKEN"
 export CF_Account_ID="$DNS_Account_ID"
 export CF_Zone_ID="$DNS_ZONE_ID"
 ./acme.sh --set-default-ca --issue --server letsencrypt --home "./ssl" -d "$DNS_DOMAIN" -d "*.$DNS_DOMAIN" --dns dns_cf  --debug  --force
 
-curl -sSL -o ssl.sh  "$DOWN_URL/sh/ssl_cf.sh"
-sed -i "s|HOME|$LOCAL_PATH|g" ssl.sh
-sed -i "s|BIN_PATH|$BIN_PATH|g" ssl.sh
-sed -i "s|DNS_TOKEN|$DNS_TOKEN|g" ssl.sh
-sed -i "s|DNS_DOMAIN|$DNS_DOMAIN|g" ssl.sh
-sed -i "s|DNS_Account_ID|$DNS_Account_ID|g" ssl.sh
-sed -i "s|DNS_ZONE_ID|$DNS_ZONE_ID|g" ssl.sh
+FILE_NAME="ssl.sh"
+curl -sSL -o "$FILE_NAME"  "$DOWN_URL/sh/ssl_cf.sh"
+sed -i "s|HOME|$LOCAL_PATH|g" "$FILE_NAME"
+sed -i "s|BIN_PATH|$BIN_PATH|g" "$FILE_NAME"
+sed -i "s|DNS_DOMAIN|$DNS_DOMAIN|g" "$FILE_NAME"
+
+sed -i "s|DNS_TOKEN|$DNS_TOKEN|g" "$FILE_NAME"
+sed -i "s|DNS_Account_ID|$DNS_Account_ID|g" "$FILE_NAME"
+sed -i "s|DNS_ZONE_ID|$DNS_ZONE_ID|g" "$FILE_NAME"
 
 
-chmod +x "./ssl.sh"
+chmod +x "./$FILE_NAME"
 
 fi
 
@@ -105,9 +109,9 @@ else
 
 sed -i "$SED_FLAGS/a  \
   \  { \n  \
-  name: \"nginx\", \n  \
+  name: \"$EXE_NAME\", \n  \
   binaryPath: \"bash\", \n  \
-  args: [\"HOME/$BIN_PATH/nginx/sbin/nginx.sh\"], \n  \
+  args: [\"HOME/$BIN_PATH/$EXE_NAME/sbin/nginx.sh\"], \n  \
   mode: \"inherit\" \n  \
  }, \n  " "$INDEX_JS"
 
@@ -118,34 +122,38 @@ fi
 # nginx
 cd "$LOCAL_PATH/$BIN_PATH"
 if [ ! -d "$EXE_NAME" ];then
-curl -sSL -o  nginx.zip "$DOWN_URL/bin/nginx.zip"
-unzip  nginx.zip
-rm nginx.zip
-chmod +x "./nginx/sbin/nginx"
 
-cd "$LOCAL_PATH/$BIN_PATH/nginx/conf"
-mv nginx.conf "nginx.conf.$EXE_NAME"
-curl -sSL -o nginx.conf  "$DOWN_URL/conf.d/nginx_http.conf"
-sed -i "s|HOME|$LOCAL_PATH|g" "nginx.conf"
-sed -i "s|BIN_PATH|$BIN_PATH|g" "nginx.conf"
-sed -i "s|443|$PORT|g"        "nginx.conf"
-sed -i "s|DNS_DOMAIN|$DNS_DOMAIN|g" "nginx.conf"
+FILE_NAME="nginx.zip"
+curl -sSL -o  "$FILE_NAME" "$DOWN_URL/bin/nginx.zip"
+unzip  "$FILE_NAME"
+rm     "$FILE_NAME"
+chmod +x "./$EXE_NAME/sbin/nginx"
+
+cd "$LOCAL_PATH/$BIN_PATH/$EXE_NAME/conf"
+FILE_NAME="nginx.conf"
+mv "$FILE_NAME" "$FILE_NAME.$EXE_NAME"
+curl -sSL -o "$FILE_NAME"  "$DOWN_URL/conf.d/nginx_http.conf"
+sed -i "s|HOME|$LOCAL_PATH|g"   "$FILE_NAME"
+sed -i "s|BIN_PATH|$BIN_PATH|g" "$FILE_NAME"
+sed -i "s|443|$PORT|g"          "$FILE_NAME"
+sed -i "s|DNS_DOMAIN|$DNS_DOMAIN|g" "$FILE_NAME"
 
 #mkdir conf.d
-mkdir -p "$LOCAL_PATH/$BIN_PATH/nginx/conf/conf.d"
+mkdir -p "$LOCAL_PATH/$BIN_PATH/$EXE_NAME/conf/conf.d"
 
-cd "$LOCAL_PATH/$BIN_PATH/nginx/sbin"
-curl -sSL -o  nginx.sh  "$DOWN_URL/sh/nginx.sh"
-sed -i "s|HOME|$LOCAL_PATH|g" "nginx.sh"
-sed -i "s|BIN_PATH|$BIN_PATH|g"  "nginx.sh"
-chmod +x "./nginx.sh"
+cd "$LOCAL_PATH/$BIN_PATH/$EXE_NAME/sbin"
+FILE_NAME="nginx.sh"
+curl -sSL -o  "$FILE_NAME"  "$DOWN_URL/sh/nginx.sh"
+sed -i "s|HOME|$LOCAL_PATH|g"    "$FILE_NAME"
+sed -i "s|BIN_PATH|$BIN_PATH|g"  "$FILE_NAME"
+chmod +x "./$FILE_NAME"
 
 fi
 
-#nkdir ssl
-mkdir -p "$LOCAL_PATH/$BIN_PATH/nginx/conf/ssl"
-cp -f "$LOCAL_PATH/$BIN_PATH/acme/ssl/$DNS_DOMAIN$ECC/fullchain.cer" "$LOCAL_PATH/$BIN_PATH/nginx/conf/ssl/fullchain.cer"
-cp -f "$LOCAL_PATH/$BIN_PATH/acme/ssl/$DNS_DOMAIN$ECC/$DNS_DOMAIN.key" "$LOCAL_PATH/$BIN_PATH/nginx/conf/ssl/$DNS_DOMAIN.key"
+#mkdir ssl
+mkdir -p "$LOCAL_PATH/$BIN_PATH/$EXE_NAME/conf/ssl"
+cp -f "$LOCAL_PATH/$BIN_PATH/acme/ssl/$DNS_DOMAIN$ECC/fullchain.cer" "$LOCAL_PATH/$BIN_PATH/$EXE_NAME/conf/ssl/fullchain.cer"
+cp -f "$LOCAL_PATH/$BIN_PATH/acme/ssl/$DNS_DOMAIN$ECC/$DNS_DOMAIN.key" "$LOCAL_PATH/$BIN_PATH/$EXE_NAME/conf/ssl/$DNS_DOMAIN.key"
 
 
 echo "$EXE_NAME is ok"
@@ -165,9 +173,9 @@ else
 
 sed -i "$SED_FLAGS/a  \
   \  { \n  \
-  name: \"navidrome\", \n  \
-  binaryPath: \"HOME/$BIN_PATH/navidrome/navidrome\", \n  \
-  args: [\"--configfile\", \"HOME/$BIN_PATH/navidrome/navidrome.toml\"], \n  \
+  name: \"$EXE_NAME\", \n  \
+  binaryPath: \"HOME/$BIN_PATH/$EXE_NAME/navidrome\", \n  \
+  args: [\"--configfile\", \"HOME/$BIN_PATH/$EXE_NAME/navidrome.toml\"], \n  \
   mode: \"inherit\" \n  \
  }, \n  " "$INDEX_JS"
 
@@ -178,17 +186,20 @@ fi
 
 # navidrome
 mkdir -p "$LOCAL_PATH/file/music"
-mkdir -p "$LOCAL_PATH/$BIN_PATH/navidrome"
-cd  "$LOCAL_PATH/$BIN_PATH/navidrome"
+mkdir -p "$LOCAL_PATH/$BIN_PATH/$EXE_NAME"
+cd  "$LOCAL_PATH/$BIN_PATH/$EXE_NAME"
 if [ ! -f "$EXE_NAME" ];then
-curl -sSL -o navidrome.tar.gz  https://github.com/navidrome/navidrome/releases/download/v0.58.0/navidrome_0.58.0_linux_amd64.tar.gz
-tar -zxvf navidrome.tar.gz
-chmod +x navidrome
-rm navidrome.tar.gz
 
-curl -sSL -o navidrome.toml  "$DOWN_URL/conf/navidrome.toml"
-sed -i "s|HOME|$LOCAL_PATH|g"  "navidrome.toml"
-sed -i "s|BIN_PATH|$BIN_PATH|g"  "navidrome.toml"
+FILE_NAME="navidrome.tar.gz"
+curl -sSL -o "$FILE_NAME"  https://github.com/navidrome/navidrome/releases/download/v0.58.0/navidrome_0.58.0_linux_amd64.tar.gz
+tar -zxvf "$FILE_NAME"
+rm        "$FILE_NAME"
+chmod +x navidrome
+
+FILE_NAME="navidrome.toml"
+curl -sSL -o "$FILE_NAME"  "$DOWN_URL/conf/navidrome.toml"
+sed -i "s|HOME|$LOCAL_PATH|g"    "$FILE_NAME"
+sed -i "s|BIN_PATH|$BIN_PATH|g"  "$FILE_NAME"
 
 fi
 
@@ -197,12 +208,13 @@ fi
 if [ -d "$LOCAL_PATH/$BIN_PATH/nginx/conf/conf.d" ];then
 
 cd "$LOCAL_PATH/$BIN_PATH/nginx/conf/conf.d"
-curl -sSL -o navidrome.conf  "$DOWN_URL/conf.d/navidrome.conf"
-sed -i "s|HOME|$LOCAL_PATH|g"   "navidrome.conf"
-sed -i "s|BIN_PATH|$BIN_PATH|g" "navidrome.conf"
-sed -i "s|443|$PORT|g"          "navidrome.conf"
-sed -i "s|DNS_NAME|$SUB_NAVIDROME|g"  "navidrome.conf"
-sed -i "s|DNS_DOMAIN|$DNS_DOMAIN|g" "navidrome.conf"
+FILE_NAME="navidrome.conf"
+curl -sSL -o "$FILE_NAME"  "$DOWN_URL/conf.d/navidrome.conf"
+sed -i "s|HOME|$LOCAL_PATH|g"   "$FILE_NAME"
+sed -i "s|BIN_PATH|$BIN_PATH|g" "$FILE_NAME"
+sed -i "s|443|$PORT|g"          "$FILE_NAME"
+sed -i "s|DNS_NAME|$SUB_NAVIDROME|g"  "$FILE_NAME"
+sed -i "s|DNS_DOMAIN|$DNS_DOMAIN|g"   "$FILE_NAME"
 
 
 fi
@@ -227,9 +239,9 @@ else
 
 sed -i "$SED_FLAGS/a  \
   \  { \n  \
-  name: \"filebrowser\", \n  \
-  binaryPath: \"HOME/$BIN_PATH/filebrowser/filebrowser\", \n  \
-  args: [\"-c\", \"HOME/$BIN_PATH/filebrowser/.config.json\"], \n  \
+  name: \"$EXE_NAME\", \n  \
+  binaryPath: \"HOME/$BIN_PATH/$EXE_NAME/filebrowser\", \n  \
+  args: [\"-c\", \"HOME/$BIN_PATH/$EXE_NAME/.config.json\"], \n  \
   mode: \"inherit\" \n  \
  }, \n  " "$INDEX_JS"
 
@@ -238,29 +250,34 @@ sed -i "s|HOME|$LOCAL_PATH|g" "$INDEX_JS"
 fi
 
 
-mkdir -p "$LOCAL_PATH/$BIN_PATH/filebrowser"
-cd "$LOCAL_PATH/$BIN_PATH/filebrowser"
+mkdir -p "$LOCAL_PATH/$BIN_PATH/$EXE_NAME"
+cd "$LOCAL_PATH/$BIN_PATH/$EXE_NAME"
 if [ ! -f "$EXE_NAME" ];then
-curl -sSL -o  filebrowser.zip "$DOWN_URL/bin/filebrowser.zip"
-unzip  filebrowser.zip
-rm filebrowser.zip
+
+FILE_NAME="filebrowser.zip"
+curl -sSL -o  "$FILE_NAME" "$DOWN_URL/bin/filebrowser.zip"
+unzip  "$FILE_NAME"
+rm     "$FILE_NAME"
 chmod +x "./filebrowser"
 
-curl -sSL -o  .config.json  "$DOWN_URL/conf/filebrowser.json"
-sed -i "s|HOME|$LOCAL_PATH|g" ".config.json"
-sed -i "s|BIN_PATH|$BIN_PATH|g" ".config.json"
+FILE_NAME=".config.json"
+curl -sSL -o  "$FILE_NAME"  "$DOWN_URL/conf/filebrowser.json"
+sed -i "s|HOME|$LOCAL_PATH|g" "$FILE_NAME"
+sed -i "s|BIN_PATH|$BIN_PATH|g" "$FILE_NAME"
 
 fi
 
 #filebrowser.conf
 if [ -d "$LOCAL_PATH/$BIN_PATH/nginx/conf/conf.d" ];then
+
 cd "$LOCAL_PATH/$BIN_PATH/nginx/conf/conf.d"
-curl -sSL -o filebrowser.conf  "$DOWN_URL/conf.d/filebrowser.conf"
-sed -i "s|HOME|$LOCAL_PATH|g"   "filebrowser.conf"
-sed -i "s|BIN_PATH|$BIN_PATH|g" "filebrowser.conf"
-sed -i "s|443|$PORT|g"          "filebrowser.conf"
-sed -i "s|DNS_NAME|$SUB_FILEBROWSER|g"  "filebrowser.conf"
-sed -i "s|DNS_DOMAIN|$DNS_DOMAIN|g"  "filebrowser.conf"
+FILE_NAME="filebrowser.conf"
+curl -sSL -o "$FILE_NAME"  "$DOWN_URL/conf.d/filebrowser.conf"
+sed -i "s|HOME|$LOCAL_PATH|g"   "$FILE_NAME"
+sed -i "s|BIN_PATH|$BIN_PATH|g" "$FILE_NAME"
+sed -i "s|443|$PORT|g"          "$FILE_NAME"
+sed -i "s|DNS_NAME|$SUB_FILEBROWSER|g"  "$FILE_NAME"
+sed -i "s|DNS_DOMAIN|$DNS_DOMAIN|g"     "$FILE_NAME"
 
 fi
 
@@ -281,9 +298,9 @@ else
 
 sed -i "$SED_FLAGS/a  \
   \  { \n  \
-  name: \"openlist\", \n  \
-  binaryPath: \"HOME/$BIN_PATH/openlist/openlist\", \n  \
-  args: [\"server\", \"--data=HOME/$BIN_PATH/openlist\"], \n  \
+  name: \"$EXE_NAME\", \n  \
+  binaryPath: \"HOME/$BIN_PATH/$EXE_NAME/openlist\", \n  \
+  args: [\"server\", \"--data=HOME/$BIN_PATH/$EXE_NAME\"], \n  \
   mode: \"inherit\" \n  \
  }, \n  " "$INDEX_JS"
 
@@ -292,30 +309,34 @@ sed -i "s|HOME|$LOCAL_PATH|g" "$INDEX_JS"
 fi
 
 
-mkdir -p "$LOCAL_PATH/$BIN_PATH/openlist"
-cd "$LOCAL_PATH/$BIN_PATH/openlist"
+mkdir -p "$LOCAL_PATH/$BIN_PATH/$EXE_NAME"
+cd "$LOCAL_PATH/$BIN_PATH/$EXE_NAME"
 if [ ! -f "$EXE_NAME" ];then
 
-curl -sSL -o  openlist.tar.gz https://github.com/OpenListTeam/OpenList/releases/download/v4.0.9/openlist-linux-amd64-lite.tar.gz
-tar -zxvf openlist.tar.gz
-rm openlist.tar.gz
-chmod +x "./openlist"
+FILE_NAME="openlist.tar.gz"
+curl -sSL -o  "$FILE_NAME" https://github.com/OpenListTeam/OpenList/releases/download/v4.0.9/openlist-linux-amd64-lite.tar.gz
+tar -zxvf "$FILE_NAME"
+rm        "$FILE_NAME"
+chmod +x  "./openlist"
 
-curl -sSL -o  config.json  "$DOWN_URL/conf/openlist.json"
-sed -i "s|HOME|$LOCAL_PATH|g" "config.json"
-sed -i "s|BIN_PATH|$BIN_PATH|g" "config.json"
+FILE_NAME="config.json"
+curl -sSL -o  "$FILE_NAME"  "$DOWN_URL/conf/openlist.json"
+sed -i "s|HOME|$LOCAL_PATH|g" "$FILE_NAME"
+sed -i "s|BIN_PATH|$BIN_PATH|g" "$FILE_NAME"
 
 fi
 
 #openlist.conf
 if [ -d "$LOCAL_PATH/$BIN_PATH/nginx/conf/conf.d" ];then
+
 cd "$LOCAL_PATH/$BIN_PATH/nginx/conf/conf.d"
-curl -sSL -o openlist.conf  "$DOWN_URL/conf.d/openlist.conf"
-sed -i "s|HOME|$LOCAL_PATH|g"   "openlist.conf"
-sed -i "s|BIN_PATH|$BIN_PATH|g" "openlist.conf"
-sed -i "s|443|$PORT|g"          "openlist.conf"
-sed -i "s|DNS_NAME|$SUB_OPENLIST|g"  "openlist.conf"
-sed -i "s|DNS_DOMAIN|$DNS_DOMAIN|g" "openlist.conf"
+FILE_NAME="openlist.conf"
+curl -sSL -o "$FILE_NAME"  "$DOWN_URL/conf.d/openlist.conf"
+sed -i "s|HOME|$LOCAL_PATH|g"   "$FILE_NAME"
+sed -i "s|BIN_PATH|$BIN_PATH|g" "$FILE_NAME"
+sed -i "s|443|$PORT|g"          "$FILE_NAME"
+sed -i "s|DNS_NAME|$SUB_OPENLIST|g"  "$FILE_NAME"
+sed -i "s|DNS_DOMAIN|$DNS_DOMAIN|g"  "$FILE_NAME"
 
 fi
 
@@ -336,9 +357,9 @@ else
 
 sed -i "$SED_FLAGS/a  \
   \  { \n  \
-  name: \"easytier\", \n  \
+  name: \"$EXE_NAME\", \n  \
   binaryPath: \"bash\", \n  \
-  args: [\"HOME/$BIN_PATH/easytier/easytier.sh\"], \n  \
+  args: [\"HOME/$BIN_PATH/$EXE_NAME/easytier.sh\"], \n  \
   mode: \"inherit\" \n  \
  }, \n  " "$INDEX_JS"
 
@@ -347,34 +368,37 @@ sed -i "s|HOME|$LOCAL_PATH|g" "$INDEX_JS"
 fi
 
 
-mkdir -p "$LOCAL_PATH/$BIN_PATH/easytier"
-cd "$LOCAL_PATH/$BIN_PATH/easytier"
+mkdir -p "$LOCAL_PATH/$BIN_PATH/$EXE_NAME"
+cd "$LOCAL_PATH/$BIN_PATH/$EXE_NAME"
 if [ ! -f "$EXE_NAME" ];then
 
-curl -sSL -o  easytier.zip  "$DOWN_URL/bin/easytier.zip"
-unzip   easytier.zip
-rm   easytier.zip
+FILE_NAME="easytier.zip"
+curl -sSL -o  "$FILE_NAME"  "$DOWN_URL/bin/easytier.zip"
+unzip   "$FILE_NAME"
+rm      "$FILE_NAME"
 chmod +x "./easytier"
 
+FILE_NAME="easytier.sh"
+curl -sSL -o  "$FILE_NAME"  "$DOWN_URL/sh/easytier.sh"
+sed -i "s|HOME|$LOCAL_PATH|g"    "$FILE_NAME"
+sed -i "s|BIN_PATH|$BIN_PATH|g"  "$FILE_NAME"
+sed -i "s|SECERT_EASYTIER|$SECERT_EASYTIER|g"  "$FILE_NAME"
 
-curl -sSL -o  easytier.sh  "$DOWN_URL/sh/easytier.sh"
-sed -i "s|HOME|$LOCAL_PATH|g" "easytier.sh"
-sed -i "s|BIN_PATH|$BIN_PATH|g"  "easytier.sh"
-sed -i "s|SECERT_EASYTIER|$SECERT_EASYTIER|g"  "easytier.sh"
-
-chmod +x "./easytier.sh"
+chmod +x "./$FILE_NAME"
 
 fi
 
 #easytier.conf
 if [ -d "$LOCAL_PATH/$BIN_PATH/nginx/conf/conf.d" ];then
+
 cd "$LOCAL_PATH/$BIN_PATH/nginx/conf/conf.d"
-curl -sSL -o easytier.conf  "$DOWN_URL/conf.d/easytier.conf"
-sed -i "s|HOME|$LOCAL_PATH|g" "easytier.conf"
-sed -i "s|BIN_PATH|$BIN_PATH|g" "easytier.conf"
-sed -i "s|443|$PORT|g"        "easytier.conf"
-sed -i "s|DNS_NAME|$SUB_EASYTIER|g"  "easytier.conf"
-sed -i "s|DNS_DOMAIN|$DNS_DOMAIN|g" "easytier.conf"
+FILE_NAME="easytier.conf"
+curl -sSL -o "$FILE_NAME"  "$DOWN_URL/conf.d/easytier.conf"
+sed -i "s|HOME|$LOCAL_PATH|g"   "$FILE_NAME"
+sed -i "s|BIN_PATH|$BIN_PATH|g" "$FILE_NAME"
+sed -i "s|443|$PORT|g"          "$FILE_NAME"
+sed -i "s|DNS_NAME|$SUB_EASYTIER|g"  "$FILE_NAME"
+sed -i "s|DNS_DOMAIN|$DNS_DOMAIN|g"  "$FILE_NAME"
 
 fi
 
@@ -398,9 +422,9 @@ else
 
 sed -i "$SED_FLAGS/a  \
   \  { \n  \
-  name: \"hbbr\", \n  \
+  name: \"$EXE_NAME\", \n  \
   binaryPath: \"bash\", \n  \
-  args: [\"HOME/$BIN_PATH/hbbr/hbbr.sh\"], \n  \
+  args: [\"HOME/$BIN_PATH/$EXE_NAME/hbbr.sh\"], \n  \
   mode: \"inherit\" \n  \
  }, \n  " "$INDEX_JS"
 
@@ -408,21 +432,22 @@ sed -i "s|HOME|$LOCAL_PATH|g" "$INDEX_JS"
 
 fi
 
-
-mkdir -p "$LOCAL_PATH/$BIN_PATH/hbbr"
-cd "$LOCAL_PATH/$BIN_PATH/hbbr"
+mkdir -p "$LOCAL_PATH/$BIN_PATH/$EXE_NAME"
+cd "$LOCAL_PATH/$BIN_PATH/$EXE_NAME"
 if [ ! -f "hbbr" ];then
 
-curl -sSL -o  hbbr.zip  "$DOWN_URL/bin/hbbr.zip"
-unzip   hbbr.zip
-rm   hbbr.zip
+FILE_NAME="hbbr.zip"
+curl -sSL -o  "$FILE_NAME"  "$DOWN_URL/bin/hbbr.zip"
+unzip   "$FILE_NAME"
+rm      "$FILE_NAME"
 chmod +x "./hbbr"
 
-curl -sSL -o  hbbr.sh  "$DOWN_URL/sh/hbbr.sh"
-sed -i "s|HOME|$LOCAL_PATH|g" "hbbr.sh"
-sed -i "s|BIN_PATH|$BIN_PATH|g"  "hbbr.sh"
+FILE_NAME="hbbr.sh"
+curl -sSL -o  "$FILE_NAME"  "$DOWN_URL/sh/hbbr.sh"
+sed -i "s|HOME|$LOCAL_PATH|g"    "$FILE_NAME"
+sed -i "s|BIN_PATH|$BIN_PATH|g"  "$FILE_NAME"
 
-chmod +x "./hbbr.sh"
+chmod +x "./$FILE_NAME"
 
 fi
 
@@ -449,8 +474,8 @@ else
 sed -i "$SED_FLAGS/a  \
   \  { \n  \
   name: \"$EXE_NAME\", \n  \
-  binaryPath: \"HOME/$BIN_PATH/frpc/frpc\", \n  \
-  args: [\"-c\", \"HOME/$BIN_PATH/frpc/frpc.toml\"], \n  \
+  binaryPath: \"HOME/$BIN_PATH/$EXE_NAME/frpc\", \n  \
+  args: [\"-c\", \"HOME/$BIN_PATH/$EXE_NAME/frpc.toml\"], \n  \
   mode: \"inherit\" \n  \
  }, \n  " "$INDEX_JS"
 
@@ -458,21 +483,22 @@ sed -i "s|HOME|$LOCAL_PATH|g" "$INDEX_JS"
 
 fi
 
-
-mkdir -p "$LOCAL_PATH/$BIN_PATH/frpc"
-cd "$LOCAL_PATH/$BIN_PATH/frpc"
+mkdir -p "$LOCAL_PATH/$BIN_PATH/$EXE_NAME"
+cd "$LOCAL_PATH/$BIN_PATH/$EXE_NAME"
 if [ ! -f "frpc" ];then
 
-curl -sSL -o  frpc.zip  "$DOWN_URL/bin/frpc.zip"
-unzip   frpc.zip
-rm   frpc.zip
+FILE_NAME="frpc.zip"
+curl -sSL -o  "$FILE_NAME"  "$DOWN_URL/bin/frpc.zip"
+unzip   "$FILE_NAME"
+rm      "$FILE_NAME"
 chmod +x "./frpc"
 
-curl -sSL -o  frpc.toml  "$DOWN_URL/conf/frpc.toml"
+FILE_NAME="frpc.toml"
+curl -sSL -o  "$FILE_NAME"  "$DOWN_URL/conf/frpc.toml"
 
 echo ---------------------------
 echo  frpc.toml files in:
-echo "$LOCAL_PATH/$BIN_PATH/frpc"
+echo "$LOCAL_PATH/$BIN_PATH/$EXE_NAME"
 echo you must change your config 
 echo more config of frpc.toml is
 echo ''
@@ -488,7 +514,6 @@ fi
 echo "$EXE_NAME is ok"
 
 }
-
 
 
 
@@ -537,8 +562,7 @@ echo DNS_Account_ID is $DNS_Account_ID
 echo DNS_EMAIL is $DNS_EMAIL
 
 # get zone id
-ZONE_NAME="$DNS_DOMAIN"
-ZONE=$(curl -X GET "https://api.cloudflare.com/client/v4/zones?name=$ZONE_NAME" \
+ZONE=$(curl -X GET "https://api.cloudflare.com/client/v4/zones?name=$DNS_DOMAIN" \
 -H "X-Auth-Email: $DNS_EMAIL" \
 -H "Authorization: Bearer $DNS_TOKEN" \
 -H "Content-Type: application/json" \
@@ -586,7 +610,12 @@ data="{\"type\":\"A\",  \
 	  }"
 echo "${data}"
 
-RECORD_IDs=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${DNS_ZONE_ID}/dns_records?name=${NAMES}.${DNS_DOMAIN}")
+RECORD_IDs=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${DNS_ZONE_ID}/dns_records?name=${NAMES}.${DNS_DOMAIN}" \
+-H "Content-Type: application/json" \
+-H "X-Auth-Email: $DNS_EMAIL" \
+-H "Authorization: Bearer $DNS_TOKEN" \
+)
+
 let RESULT=$(echo $RECORD_IDs|grep -c '"success":false')
 if [ $RESULT -eq 0 ];then
 
@@ -740,7 +769,7 @@ fi
 
 # change ip for DNS_DOMAIN
 sleep 2
-if [ -n  "$DNS_TOKEN" ];then
+if [  -n  "$DNS_TOKEN" ];then
 
 GET_CF
 echo "DNS_DOMAIN is :$DNS_DOMAIN"
@@ -863,7 +892,6 @@ if [ "$FRPC_FLAG" == "true" ];then
 FRPC
 
 fi
-
 
 }
 
