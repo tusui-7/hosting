@@ -399,8 +399,8 @@ sed -i "s|HOME|$LOCAL_PATH|g" "$INDEX_JS"
 fi
 
 
-mkdir -p "$LOCAL_PATH/$BIN_PATH/hbb"
-cd "$LOCAL_PATH/$BIN_PATH/hbb"
+mkdir -p "$LOCAL_PATH/$BIN_PATH/hbbr"
+cd "$LOCAL_PATH/$BIN_PATH/hbbr"
 if [ ! -f "hbbr" ];then
 
 curl -sSL -o  hbbr.zip  "$DOWN_URL/bin/hbbr.zip"
