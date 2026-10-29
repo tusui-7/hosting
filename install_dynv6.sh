@@ -492,7 +492,7 @@ function  GET_DYNV6()
 {
 if [ -n  "$DNS_TOKEN" ];then
 
-ZONE=$(curl \
+ZONE=$(curl -s -X GET \
     -H "Authorization: Bearer $DNS_TOKEN" \
     -H "Accept: application/json" \
     https://dynv6.com/api/v2/zones  \
