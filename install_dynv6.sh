@@ -880,7 +880,7 @@ fi
 
 #frpc
 if [ "$FRPC_FLAG" == "true" ];then
-FPRC
+FRPC
 
 fi
 
